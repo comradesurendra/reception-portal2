@@ -14,8 +14,8 @@ code {
 .loginpic{
   opacity: 1;
 
-  width:270px;
-  height:790px;
+  width:545px;
+  height:795px;
   
 
 }
@@ -31,9 +31,9 @@ code {
   background-size: cover;
   position: relative;
 
-  width: 350px;
+  width: 735px;
   float:right;
-  height:790px;
+  height:795px;
 
 
   
@@ -86,7 +86,8 @@ align-content: center;
   right:0;
   margin:20px;
   padding:16px;
-  max-width: 700px;
+ width:475;
+ height:428;
   background-color: white;
 }
 input[type=text]:focus,input[type=password]:focus{
