@@ -13,9 +13,11 @@ code {
 }
 .loginpic{
   opacity: 1;
+
   width:270px;
   height:790px;
   
+
 }
 
 
@@ -28,9 +30,11 @@ code {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+
   width: 350px;
   float:right;
   height:790px;
+
 
   
   
