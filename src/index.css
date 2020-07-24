@@ -14,10 +14,23 @@ code {
 .loginpic{
   opacity: 1;
 
-  width:545px;
+  width:555px;
   height:795px;
   
 
+}
+.header{
+  width:1280px;
+  height:70px;
+  opacity:1;
+background-color:#FFFFFF;
+}
+.logo{
+  left:70;
+  top:15;
+  width: 35;
+  height:35;
+  opacity: 1;
 }
 
 
@@ -77,8 +90,8 @@ align-content: center;
   position: center;
   background-repeat: no-repeat;background-size: cover;
   position: relative;
-  width: 312;
-  height: 328;
+  width: 475;
+  height: 428;
 
 }
 .container{

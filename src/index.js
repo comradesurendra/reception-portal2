@@ -5,12 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import  Receptionlogin  from './Receptionlogin'
 import Loginpic from './Loginpic';
+import Header from './Header';
 
 
 ReactDOM.render(
   
   <React.StrictMode>
-    <Receptionlogin />
+   {/* <Receptionlogin /> */}
+   <Header/>
   </React.StrictMode>,
   document.getElementById('root')
 );
