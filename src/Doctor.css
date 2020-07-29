@@ -1,0 +1,25 @@
+ .blueback{
+     background-image: url("./blue.png"); 
+    /* width:1140px; */
+    /* height:64px;
+    left:70px;
+    top:82px; */ 
+    background-repeat:no-repeat;
+} 
+/* .select{
+    left:100;
+    top:136;
+    width:260;
+    height: 50;
+    opacity:1;
+    fill:#ffffff;
+} */
+/* .datepick{
+    left:952;
+    top:136;
+    width:120px;
+    height: 15px;
+    opacity:1;
+    fill:#ffffff;
+
+} */

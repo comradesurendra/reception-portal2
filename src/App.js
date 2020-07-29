@@ -1,26 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import fire from'./config/fire';
+import Receptionlogin from './Receptionlogin';
+import Listofdoctor from './Listdoctor';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App=()=>{
+  const addDoc = obj =>{
+    fire.child('doctor').push(
+      obj,
+      err=>{
+        console.log(err)
+      }
+    )
+
+  }
+  
 }
-
 export default App;

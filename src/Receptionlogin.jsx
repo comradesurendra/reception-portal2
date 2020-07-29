@@ -1,4 +1,9 @@
 import React from 'react';
+import Header from './Header';
+import Adddoctor from './Adddoctor';
+import firebase from './config/fire';
+import {useLocation,useHistory} from 'react-router-dom'
+
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -8,8 +13,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 
+import Listdoctor from './Listdoctor';
+
 
 import Typography from '@material-ui/core/Typography';
+import fire from './config/fire';
+import { useEffect } from 'react';
 
 
 function Receptionlogin(){
@@ -17,6 +26,7 @@ function Receptionlogin(){
 const[password,setpassword]=useState("");
 const onsubmit=(event)=>{
     event.preventDefault();
+    
     setemail(email)
     setpassword(password)
     console.log(email)
@@ -25,6 +35,10 @@ const onsubmit=(event)=>{
     jsonObj["email"]=email
     jsonObj["password"]=password
     console.log(jsonObj)
+    
+
+    
+
 }
 const InputEvent=(event)=>{
     console.log(event.target.value)
@@ -38,6 +52,7 @@ const InputEventTwo=(event)=>{
 
 function Copyright() {
   return (
+    
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
@@ -48,10 +63,18 @@ function Copyright() {
     </Typography>
   );
 }
-
+const [firebaseInitialized,setFirebaseinitialized]=useState(false)
+useEffect(()=>{
+  firebase.isInitialized().then(val=>{
+    setFirebaseinitialized(val)
+  })
+})
+const history=useHistory();
 
 
 return( <>
+
+
 <img src="login.png" className="loginpic"/>
 <div className="back-bg">
   <Typography variant="body2"  align="center">
@@ -104,6 +127,8 @@ return( <>
               variant="contained"
               
               className="btn"
+              onClick={login}
+              
             >
               Log In
             </button>
@@ -126,6 +151,20 @@ return( <>
 </div>
 </div>
 </> );
+async function login(){
+  try
+  {
+    const  res=await firebase.login(email,password)
+    console.log(`${res?'Login Success':'Login  Failed'}`)
+if(res){
+  history.push('/listdoctor')
+}
+  
+  }
+catch(error){
+  alert(error)
+}
+}
   
 }
 export default Receptionlogin;
