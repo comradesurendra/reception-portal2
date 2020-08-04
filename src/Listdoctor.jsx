@@ -106,7 +106,7 @@ function createData(name,age, sex, contact, slot,Action) {
 }
 
 const rows = [
-  createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button varient="outlined" color="primary">Cancel</Button><Button  varient="outlined" color="primary">Reschedule</Button></div> ),
+  createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button variant="contained"  color="primary">Cancel</Button><Button variant="contained"  color="primary">Reschedule</Button></div> ),
   
 ]
 
