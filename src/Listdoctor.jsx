@@ -25,6 +25,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import 'date-fns';
+import Chip from '@material-ui/core/Chip';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -32,6 +33,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import firebase from './config/fire';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -39,6 +41,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import {useEffect} from 'react';
 import TablePagination from '@material-ui/core/TablePagination';
 
 import Accordion from '@material-ui/core/Accordion';
@@ -60,6 +63,7 @@ function Listdoctor(){
   const [appoint,setAppoint]=useState(false);
   const handleappointment = ()=>{
     setAppoint(true);
+
   }
   const handleCloseappoint=()=>{
     setAppoint(false)
@@ -77,7 +81,8 @@ function Listdoctor(){
     lname:"",
     phone:"",
     address:"",
-    email:""
+    email:"",
+    
    
      
  
@@ -96,12 +101,12 @@ function Listdoctor(){
    console.log(event.target.value)
  }
  
-function createData(name,age, sex, contact, slot) {
-  return { name,age, sex, contact, slot };
+function createData(name,age, sex, contact, slot,Action) {
+  return { name,age, sex, contact, slot,Action };
 }
 
 const rows = [
-  createData('Priya Kashyap', 39, 'Female',  91-9786575778, "01:00 PM", ),
+  createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button varient="outlined" color="primary">Cancel</Button><Button  varient="outlined" color="primary">Reschedule</Button></div> ),
   
 ]
 
@@ -131,10 +136,26 @@ const onsubmits=(event)=>{
   jsonObj["phone"]=phone
   jsonObj["address"]=address
   jsonObj["email"]=email
+  
   console.log(jsonObj)
+  // const addpatient=firebase.database().ref("patient");
+  // addpatient.push(jsonObj);
+
 
   
 }
+// useEffect(()=>{
+//   var database=firebase.database();
+//   var ref=database.ref("patient");
+//   ref.on("value",function(snapshot){
+//     snapshot.forEach(function(childSnapshot){
+//       var data=childSnapshot.val();
+//       console.log(data);
+//     });
+//   })
+  
+// })
+
 const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
@@ -208,13 +229,12 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
       <CardContent>
         <img src="profile.png"/>
         
-        <div>
+        
         <Typography>DR. RAKESH GUPTA</Typography><br/>
         <Typography>MBBS,MD-Dermatology,Hair Transplant,</Typography>
 <br/>
 <Typography>12 Years Experience(8 Years as Specialist)</Typography>
-</div>
-<div>
+
 <Accordion>
 <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -234,6 +254,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
             <TableCell align="right">SEX</TableCell>
             <TableCell align="right">Contact</TableCell>
             <TableCell align="right">Slot</TableCell>
+            <TableCell align="right" >Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -246,6 +267,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
               <TableCell align="right">{row.sex}</TableCell>
               <TableCell align="right">{row.contact}</TableCell>
               <TableCell align="right">{row.slot}</TableCell>
+              <TableCell align ="right">{row.Action}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -253,7 +275,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     </TableContainer>
         </AccordionDetails>
       </Accordion>
-      </div>
+      
       
       </CardContent>
       
@@ -281,12 +303,18 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     
      <p>Age</p>
     <TextField id="outlined-basic" name="age" value={age} label="Type patient Age" variant="outlined"  onChange={handleinput}/>
+    
+    <p>Available slot</p>
+    
     <p>Patient First Name</p>
     <TextField id="outlined-basic" name="fname" value={fname}label="Type patient first name" variant="outlined"  onChange={handleinput}/>
     <p>Patient Last Name</p>
     <TextField id="outlined-basic" value={lname} name="lname"label="Type patient last name" variant="outlined"  onChange={handleinput}/>
     <p>Phone</p>
     <TextField id="outlined-basic"  value={phone}name="phone" label="Type patient contact" variant="outlined"  onChange={handleinput}/>
+    <Button  variant="outlined"   color="primary">
+            Verify OTP
+                 </Button>
     <p>Address</p>
     <TextField id="outlined-basic"  value={address}name="address"label="Type patient Address" variant="outlined"  onChange={handleinput}/>
     <p>Email</p>

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
@@ -12,6 +12,7 @@ var firebaseConfig = {
     appId: "1:208177611572:web:4821ee2550405de3af5b61",
     measurementId: "G-BDDN3BHCR2"
   };
+  
   class Firebase{
     constructor(){
   
@@ -34,3 +35,5 @@ var firebaseConfig = {
 
 
   export default new Firebase()
+  // export default firebase;
+ 
