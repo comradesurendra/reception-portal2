@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './assets/images/logo.svg';
+import './styles/App.css';
 import fire from'./config/fire';
-import Receptionlogin from './Receptionlogin';
-import Listofdoctor from './Listdoctor';
+import Receptionlogin from './components/Receptionlogin';
+import Listofdoctor from './components/Listdoctor';
 
 
 const App=()=>{

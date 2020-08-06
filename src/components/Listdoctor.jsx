@@ -3,7 +3,7 @@ import Header from './Header';
 
 
 
-import "./Doctor.css";
+import "../styles/Doctor.css";
 import {useState }from 'react';
 import 'date-fns';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -33,7 +33,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import firebase from './config/fire';
+import firebase from '../config/fire';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {

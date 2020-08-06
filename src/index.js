@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import  Receptionlogin  from './Receptionlogin'
-import Loginpic from './Loginpic';
-import Header from './Header';
-import Adddoctor from './Adddoctor';
-import Listdoctor from './Listdoctor';
+import  Receptionlogin  from './components/Receptionlogin'
+import Loginpic from './components/Loginpic';
+import Header from './components/Header';
+import Adddoctor from './components/Adddoctor';
+import Listdoctor from './components/Listdoctor';
 
 
 

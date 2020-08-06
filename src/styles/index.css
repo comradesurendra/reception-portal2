@@ -35,7 +35,7 @@ background-color:#FFFFFF;
 
 }
 .back{
-  background-image: url("./background.png");
+  background-image: url("../assets/images/background.png");
 }
 .profile{
   
@@ -72,7 +72,7 @@ background-color:#FFFFFF;
   box-sizing: border-box;
 }
 .back-bg{
-  background-image: url("./rectangle.png");
+  background-image: url("../assets/images/rectangle.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -119,7 +119,7 @@ font-size:24px;
 align-content: center;
 }
 .bg-img{
-  background-image: url("./whiteback.png");
+  background-image: url("../assets/images/whiteback.png");
   
   position: center;
   background-repeat: no-repeat;background-size: cover;

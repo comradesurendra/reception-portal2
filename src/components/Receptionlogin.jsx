@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Adddoctor from './Adddoctor';
-import firebase from './config/fire';
+import firebase from '../config/fire';
 import {useLocation,useHistory} from 'react-router-dom'
 
 
@@ -17,7 +17,7 @@ import Listdoctor from './Listdoctor';
 
 
 import Typography from '@material-ui/core/Typography';
-import fire from './config/fire';
+import fire from '../config/fire';
 import { useEffect } from 'react';
 
 
