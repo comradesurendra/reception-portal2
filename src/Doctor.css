@@ -6,6 +6,12 @@
     top:82px; */ 
     background-repeat:no-repeat;
 } 
+.content{
+    position: relative;
+}
+.view{
+    width:25%;
+}
 /* .select{
     left:100;
     top:136;

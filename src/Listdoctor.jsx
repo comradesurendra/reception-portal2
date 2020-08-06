@@ -68,11 +68,21 @@ function Listdoctor(){
   const handleCloseappoint=()=>{
     setAppoint(false)
   }
+  const [reschedule,setreschedule]=useState(false)
+  const handlereschedule=()=>{
+    setreschedule(true)
+
+  }
+
+  const [{redate,reslots}, setreForm]=useState({
+    redate:"",
+    reslots:""
+  })
   
 
 
 
-  const [{ date,age,fname,lname,phone,address,email}, setForm] = useState({
+  const [{ date,age,fname,lname,phone,address,email,slots}, setForm] = useState({
     
    date:"",
     
@@ -82,6 +92,7 @@ function Listdoctor(){
     phone:"",
     address:"",
     email:"",
+    slots:""
     
    
      
@@ -106,7 +117,7 @@ function createData(name,age, sex, contact, slot,Action) {
 }
 
 const rows = [
-  createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button variant="contained"  color="primary">Cancel</Button><Button variant="contained"  color="primary">Reschedule</Button></div> ),
+  createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button variant="contained"  color="primary">Cancel</Button><Button variant="contained"  onClick={handlereschedule} color="primary">Reschedule</Button></div> ),
   
 ]
 
@@ -114,6 +125,17 @@ const rows = [
    setdate(event.target.value)
    console.log(event.target.value)
  }
+ const handlerescheduleinput = (e)=>{
+   e.persist()
+   setreForm((prevState) => ({
+    ...prevState,
+    [e.target.name]: e.target.value,
+    
+}))
+console.log(e.target.value)
+}
+
+ 
  const handleinput = (e) => {
   e.persist()
   
@@ -136,6 +158,7 @@ const onsubmits=(event)=>{
   jsonObj["phone"]=phone
   jsonObj["address"]=address
   jsonObj["email"]=email
+  jsonObj["slots"]=slots
   
   console.log(jsonObj)
   // const addpatient=firebase.database().ref("patient");
@@ -143,6 +166,14 @@ const onsubmits=(event)=>{
 
 
   
+}
+const onreschedulesubmits=(event)=>{
+  event.preventDefault();
+ 
+  let  jsonObj={};
+  jsonObj["redate"]=redate
+  jsonObj["reslots"]=reslots
+  console.log(jsonObj)
 }
 // useEffect(()=>{
 //   var database=firebase.database();
@@ -191,7 +222,8 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
                 <option  value="cardology" >Cardlogy</option>
              
               </select>
-                   </div>
+                  
+
                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
@@ -209,6 +241,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
         />
         </Grid>
         </MuiPickersUtilsProvider>
+        </div>
         
         </CardContent>
 
@@ -228,22 +261,27 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
         
       <CardContent>
         <img src="profile.png"/>
+        <div className="content">
         
         
         <Typography>DR. RAKESH GUPTA</Typography><br/>
         <Typography>MBBS,MD-Dermatology,Hair Transplant,</Typography>
 <br/>
 <Typography>12 Years Experience(8 Years as Specialist)</Typography>
+</div>
 
 <Accordion>
+<div className="view">
 <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
-          id="panel1a-header"
+          id="panelheader"
         >
         
           <Typography >View Booking</Typography>
+         
         </AccordionSummary>
+        </div>
         <AccordionDetails>
         <TableContainer component={Paper}>
       <Table  aria-label="simple table">
@@ -277,6 +315,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
       </Accordion>
       
       
+      
       </CardContent>
       
       <CardActions>
@@ -305,6 +344,16 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     <TextField id="outlined-basic" name="age" value={age} label="Type patient Age" variant="outlined"  onChange={handleinput}/>
     
     <p>Available slot</p>
+    <div onChange={handleinput}>
+              <select id="slots" name="slots">
+                <option  value="9:00am-10:00am" >9:00am-10:00am</option>
+                <option  value="10:00am-12:00pm" >10:00am-12:00pm</option>
+                <option  value="12:00pm-2:00pm" >12:00pm-2:00pm</option>
+                <option  value="2:00pm-4:00pm" >2:00pm-4:00pm</option>
+                <option  value="4:00pm-6:00pm" >4:00pm-6:00pm</option>
+             
+              </select>
+                   </div>
     
     <p>Patient First Name</p>
     <TextField id="outlined-basic" name="fname" value={fname}label="Type patient first name" variant="outlined"  onChange={handleinput}/>
@@ -312,9 +361,7 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     <TextField id="outlined-basic" value={lname} name="lname"label="Type patient last name" variant="outlined"  onChange={handleinput}/>
     <p>Phone</p>
     <TextField id="outlined-basic"  value={phone}name="phone" label="Type patient contact" variant="outlined"  onChange={handleinput}/>
-    <Button  variant="outlined"   color="primary">
-            Verify OTP
-                 </Button>
+    
     <p>Address</p>
     <TextField id="outlined-basic"  value={address}name="address"label="Type patient Address" variant="outlined"  onChange={handleinput}/>
     <p>Email</p>
@@ -345,6 +392,36 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
 
       </DialogActions>
     </Dialog>
+
+    <Dialog open={reschedule}>
+    <form onSubmit={onreschedulesubmits} >
+      <DialogContent>
+        <p>SELECT NEW DATE:</p>
+        <TextField  type="date" name="redate" value={redate} id="redate"  label="Select Date" variant="outlined"  onChange={handlerescheduleinput}/>
+        <p>SELECT NEW SLOTS</p>
+        <div onChange={handlerescheduleinput}>
+              <select id="slots" name="reslots">
+                <option  value="9:00am-10:00am" >9:00am-10:00am</option>
+                <option  value="10:00am-12:00pm" >10:00am-12:00pm</option>
+                <option  value="12:00pm-2:00pm" >12:00pm-2:00pm</option>
+                <option  value="2:00pm-4:00pm" >2:00pm-4:00pm</option>
+                <option  value="4:00pm-6:00pm" >4:00pm-6:00pm</option>
+             
+              </select>
+                   </div>
+                   
+
+      </DialogContent>
+      <DialogActions>
+      <Button  type="submit"  color="primary">
+            OK
+          </Button>
+
+      </DialogActions>
+      </form>
+    </Dialog>
+    
+  
     
   
 
