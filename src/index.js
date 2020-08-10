@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import  Receptionlogin  from './components/Receptionlogin'
 import Loginpic from './components/Loginpic';
@@ -13,7 +12,7 @@ import Listdoctor from './components/Listdoctor';
 
 import {BrowserRouter as Router} from'react-router-dom';
 import {Route,Switch} from 'react-router-dom';
-import fire from'./config/fire';
+
 
 
 
@@ -25,8 +24,7 @@ ReactDOM.render(
     
     <Switch>
     <Route  exact path='/' component={Receptionlogin}/>
-      <Route exact path='/listdoctor' component={Listdoctor}/>
-      <Route exact path='/adddoctor' component={Adddoctor}/>
+    <Route exact path='/listdoctor' component={Listdoctor}/>
    
 
     </Switch> 

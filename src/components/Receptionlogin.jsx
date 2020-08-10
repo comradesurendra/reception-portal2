@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './Header';
 import Adddoctor from './Adddoctor';
-import firebase from '../config/fire';
 import {useLocation,useHistory} from 'react-router-dom'
 
 
@@ -17,7 +16,6 @@ import Listdoctor from './Listdoctor';
 
 
 import Typography from '@material-ui/core/Typography';
-import fire from '../config/fire';
 import { useEffect } from 'react';
 
 
@@ -63,12 +61,7 @@ function Copyright() {
     </Typography>
   );
 }
-const [firebaseInitialized,setFirebaseinitialized]=useState(false)
-useEffect(()=>{
-  firebase.isInitialized().then(val=>{
-    setFirebaseinitialized(val)
-  })
-})
+
 const history=useHistory();
 
 
@@ -127,7 +120,6 @@ return( <>
               variant="contained"
               
               className="btn"
-              onClick={login}
               
             >
               Log In
@@ -151,20 +143,6 @@ return( <>
 </div>
 </div>
 </> );
-async function login(){
-  try
-  {
-    const  res=await firebase.login(email,password)
-    console.log(`${res?'Login Success':'Login  Failed'}`)
-if(res){
-  history.push('/listdoctor')
-}
-  
-  }
-catch(error){
-  alert(error)
-}
-}
   
 }
 export default Receptionlogin;
