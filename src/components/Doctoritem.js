@@ -20,6 +20,9 @@ const Doctoritem = (props) => {
     redate:"",
     reslots:""
   })
+  const handlerescheduleappoint=()=>{
+    setreschedule(false)
+  }
   const [{ date,age,fname,lname,phone,address,email}, setForm] = useState({
     
     date:"",
@@ -44,8 +47,11 @@ const Doctoritem = (props) => {
       jsonObj["phone"]=phone
       jsonObj["address"]=address
       jsonObj["email"]=email
+      console.log(jsonObj)
     
     }
+    
+    
     const onreschedulesubmits=(event)=>{
       event.preventDefault();
      
@@ -62,7 +68,17 @@ const Doctoritem = (props) => {
           [e.target.name]: e.target.value,
           
       }))
+      console.log(e.target.value)
     }
+    const handlerescheduleinput = (e)=>{
+      e.persist()
+      setreForm((prevState) => ({
+       ...prevState,
+       [e.target.name]: e.target.value,
+       
+   }))
+   console.log(e.target.value)
+   }
     const [value, setValue] = React.useState('female');
 
     const handleChange = (event) => {
@@ -77,9 +93,12 @@ const Doctoritem = (props) => {
 
 
 
+    function createData(name,age, sex, contact, slot,Action) {
+      return { name,age, sex, contact, slot,Action };
+    }
 
-
-    const patients = [{name:'Priya Kashyap', age:39, sex:'Female',  number:9786575778, time: "01:00 PM" }]
+    const rows = [
+      createData('Priya Kashyap', 39, 'Female',  9786575778, "01:00 PM",<div><Button variant="contained"  color="primary">Cancel</Button><Button variant="contained"  onClick={handlereschedule} color="primary">Reschedule</Button></div> ),]
     const doctor = props.data;
 
     return (
@@ -123,18 +142,19 @@ const Doctoritem = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {patients.map((row) => (
+          {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.sex}</TableCell>
-              <TableCell align="right">{row.number}</TableCell>
-              <TableCell align="right">{row.time}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+            <TableCell component="th" scope="row">
+              {row.name}
+            </TableCell>
+            <TableCell align="right">{row.age}</TableCell>
+            <TableCell align="right">{row.sex}</TableCell>
+            <TableCell align="right">{row.contact}</TableCell>
+            <TableCell align="right">{row.slot}</TableCell>
+            <TableCell align ="right">{row.Action}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
       </Table>
     </TableContainer>
         </AccordionDetails>
@@ -219,13 +239,13 @@ const Doctoritem = (props) => {
       </DialogActions>
     </Dialog>
 
-    <Dialog open={appoint}>
-    <form onSubmit={handlereschedule} >
+    <Dialog open={reschedule}>
+    <form onSubmit={onreschedulesubmits} >
       <DialogContent>
         <p>SELECT NEW DATE:</p>
-        <TextField  type="date" name="redate" value={redate} id="redate"  label="Select Date" variant="outlined"  onChange={handleinput}/>
+        <TextField  type="date" name="redate" value={redate} id="redate"  label="Select Date" variant="outlined"  onChange={handlerescheduleinput}/>
         <p>SELECT NEW SLOTS</p>
-        <div onChange={null}>
+        <div onChange={handlerescheduleinput}>
               <select id="slots" name="reslots">
                 <option  value="9:00am-10:00am" >9:00am-10:00am</option>
                 <option  value="10:00am-12:00pm" >10:00am-12:00pm</option>
@@ -239,7 +259,7 @@ const Doctoritem = (props) => {
 
       </DialogContent>
       <DialogActions>
-      <Button  type="submit"  color="primary">
+      <Button   onClick={handlerescheduleappoint} type="submit"  color="primary">
             OK
           </Button>
 
