@@ -17,67 +17,8 @@ import {useEffect} from 'react';
 import Doctoritem from './Doctoritem';
 
 
-
-
-
-
 function Listdoctor(props){
 
-    
-  const [open, setOpen] = React.useState(false);
-  
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const [appoint,setAppoint]=useState(false);
-  const handleappointment = ()=>{
-    setAppoint(true);
-
-  }
-  const handleCloseappoint=()=>{
-    setAppoint(false)
-  }
-  const [reschedule,setreschedule]=useState(false)
-  const handlereschedule=()=>{
-    setreschedule(true)
-
-  }
-
-  const [{redate,reslots}, setreForm]=useState({
-    redate:"",
-    reslots:""
-  })
-  
-
-
-
-  const [{ date,age,fname,lname,phone,address,email,slots}, setForm] = useState({
-    
-   date:"",
-    
-    age:"",
-    fname:"",
-    lname:"",
-    phone:"",
-    address:"",
-    email:"",
-    slots:""
-    
-   
-     
- 
- })
- const [value, setValue] = React.useState('female');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
 
  const [depart,setdepart]=useState("all department");
  const [selecteddate,setdate]=useState();
@@ -87,12 +28,6 @@ function Listdoctor(props){
    console.log(event.target.value)
  }
  
-function createData(name,age, sex, contact, slot,Action) {
-  return { name,age, sex, contact, slot,Action };
-}
-
-
-
  const handledate=(event)=>{
    setdate(event.target.value)
    console.log(event.target.value)
@@ -106,43 +41,6 @@ function createData(name,age, sex, contact, slot,Action) {
 }))
 console.log(e.target.value)
 }
-
- 
- const handleinput = (e) => {
-  e.persist()
-  
-  setForm((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-      
-  }))
-  console.log(e.target.value)
-}
-const onsubmits=(event)=>{
-  event.preventDefault();
- 
-  let  jsonObj={};
-  jsonObj["date"]=date
-  jsonObj["mode"]=value
-  jsonObj["age"]=age
-  jsonObj["fname"]=fname
-  jsonObj["lname"]=lname
-  jsonObj["phone"]=phone
-  jsonObj["address"]=address
-  jsonObj["email"]=email
-  jsonObj["slots"]=slots
-
-  
-}
-const onreschedulesubmits=(event)=>{
-  event.preventDefault();
- 
-  let  jsonObj={};
-  jsonObj["redate"]=redate
-  jsonObj["reslots"]=reslots
-  console.log(jsonObj)
-}
-
 const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
@@ -160,6 +58,10 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const [{redate,reslots}, setreForm]=useState({
+    redate:"",
+    reslots:""
+  })
 
 
   const sampleprop = {
@@ -167,7 +69,6 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     designation : 'MBBS'
 
   }
-
     
     return(
         <>

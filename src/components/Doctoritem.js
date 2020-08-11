@@ -8,23 +8,86 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const Doctoritem = (props) => {
 
 
-    const patients = [{name:'Priya Kashyap', age:39, sex:'Female',  number:9786575778, time: "01:00 PM"}]
     const [open, setOpen] = useState(false);
-    const doctor = props.data;
+    const handleClickOpen = () => {setOpen(true);};
+    const handleClose = () => {setOpen(false);};
+    const [appoint,setAppoint]=useState(false);
+    const handleappointment = ()=>{setAppoint(true);}
+    const handleCloseappoint=()=>{setAppoint(false)}
+    const [reschedule,setreschedule]=useState(false)
+    const handlereschedule=()=>{setreschedule(true)}
+    const [{redate,reslots}, setreForm]=useState({
+    redate:"",
+    reslots:""
+  })
+  const [{ date,age,fname,lname,phone,address,email}, setForm] = useState({
+    
+    date:"",
+     
+     age:"",
+     fname:"",
+     lname:"",
+     phone:"",
+     address:"",
+     email:"",
+    })
+  
+    const onsubmits=(event)=>{
+      event.preventDefault();
+     
+      let  jsonObj={};
+      jsonObj["date"]=date
+      jsonObj["mode"]=value
+      jsonObj["age"]=age
+      jsonObj["fname"]=fname
+      jsonObj["lname"]=lname
+      jsonObj["phone"]=phone
+      jsonObj["address"]=address
+      jsonObj["email"]=email
+    
+    }
+    const onreschedulesubmits=(event)=>{
+      event.preventDefault();
+     
+      let  jsonObj={};
+      jsonObj["redate"]=redate
+      jsonObj["reslots"]=reslots
+      console.log(jsonObj)
+    }
+    const handleinput = (e) => {
+      e.persist()
+      
+      setForm((prevState) => ({
+          ...prevState,
+          [e.target.name]: e.target.value,
+          
+      }))
+    }
+    const [value, setValue] = React.useState('female');
 
-
-
-
-
-
+    const handleChange = (event) => {
+      setValue(event.target.value);
+    };
+    
 
     
+    
+
+
+
+
+
+
+
+    const patients = [{name:'Priya Kashyap', age:39, sex:'Female',  number:9786575778, time: "01:00 PM" }]
+    const doctor = props.data;
+
     return (
     <>
         <Card >
         
       <CardContent>
-        <img src="profile.png"/>
+        <img style= {{float : "left"}}src="profile.png"/>
         <div className="content">
         
         
@@ -34,7 +97,7 @@ const Doctoritem = (props) => {
         <Typography>{/*EXPERIENCE*/}</Typography>
         </div>
 
-        <Accordion>
+        <Accordion style={{width : '90%'}}>
         <div className="view">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -82,11 +145,11 @@ const Doctoritem = (props) => {
       </CardContent>
       
       <CardActions>
-      <Button variant="contained" color="primary" onClick={null}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         +Book Appointment
       </Button>
-        <Dialog open={open} onClose={null} aria-labelledby="form-dialog-title">
-        <form onSubmit={null} >
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <form onSubmit={onsubmits} >
         <DialogTitle id="form-dialog-title">Patient Details</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -97,14 +160,14 @@ const Doctoritem = (props) => {
           <b>Select your Appointment Date</b><span className="require">*</span>
          
           
-          <TextField  type="date" name="date" value={null} id="outlined-basic"  label="Select Date" variant="outlined"  onChange={null}/>
-          <RadioGroup  aria-label="mode" name="mode" value={null} onChange={null}>
+          <TextField  type="date" name="date" value={date} id="outlined-basic"  label="Select Date" variant="outlined"  onChange={handleinput}/>
+          <RadioGroup  aria-label="mode" name="mode" value={value} onChange={handleChange}>
         <FormControlLabel value="Online" control={<Radio />} label="Online" />
         <FormControlLabel value="Offline" control={<Radio />} label="Offline" />
     </RadioGroup>
     
      <p>Age</p>
-    <TextField id="outlined-basic" name="age" value={null} label="Type patient Age" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic" name="age" value={age} label="Type patient Age" variant="outlined"  onChange={handleinput}/>
     
     <p>Available slot</p>
     <div onChange={null}>
@@ -119,23 +182,23 @@ const Doctoritem = (props) => {
                    </div>
     
     <p>Patient First Name</p>
-    <TextField id="outlined-basic" name="fname" value={"TEST"}label="Type patient first name" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic" name="fname" value={fname}label="Type patient first name" variant="outlined"  onChange={handleinput}/>
     <p>Patient Last Name</p>
-    <TextField id="outlined-basic" value={"TEST"} name="lname"label="Type patient last name" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic" value={lname} name="lname"label="Type patient last name" variant="outlined"  onChange={handleinput}/>
     <p>Phone</p>
-    <TextField id="outlined-basic"  value={"TEST"}name="phone" label="Type patient contact" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic"  value={phone}name="phone" label="Type patient contact" variant="outlined"  onChange={handleinput}/>
     
     <p>Address</p>
-    <TextField id="outlined-basic"  value={"TEST"}name="address"label="Type patient Address" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic"  value={address}name="address"label="Type patient Address" variant="outlined"  onChange={handleinput}/>
     <p>Email</p>
-    <TextField id="outlined-basic" value={"TEST"} name="email" label="Type patient email address" variant="outlined"  onChange={null}/>
+    <TextField id="outlined-basic" value={email} name="email" label="Type patient email address" variant="outlined"  onChange={handleinput}/>
 
     </DialogContent>
         <DialogActions>
-          <Button onClick={null} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button  variant="contained" type="submit"  onClick={null} color="primary">
+          <Button  variant="contained" type="submit"  onClick={handleappointment} color="primary">
             +Book Appointment
           </Button>
         </DialogActions>
@@ -144,23 +207,23 @@ const Doctoritem = (props) => {
       </CardActions>
     </Card>
 
-    <Dialog open={false}>
+    <Dialog open={appoint}>
       <DialogContent>
         Patient Added
       </DialogContent>
       <DialogActions>
-      <Button onClick={null} color="primary">
+      <Button onClick={handleCloseappoint} color="primary">
             OK
           </Button>
 
       </DialogActions>
     </Dialog>
 
-    <Dialog open={null}>
-    <form onSubmit={null} >
+    <Dialog open={appoint}>
+    <form onSubmit={handlereschedule} >
       <DialogContent>
         <p>SELECT NEW DATE:</p>
-        <TextField  type="date" name="redate" value={"TEST"} id="redate"  label="Select Date" variant="outlined"  onChange={null}/>
+        <TextField  type="date" name="redate" value={redate} id="redate"  label="Select Date" variant="outlined"  onChange={handleinput}/>
         <p>SELECT NEW SLOTS</p>
         <div onChange={null}>
               <select id="slots" name="reslots">
