@@ -13,6 +13,6 @@ var firebaseConfig = {
   };
   
   // Initialize Firebase
-  var fireDB = firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
 
-  export default fireDB.database().ref();
+  export default firebase;

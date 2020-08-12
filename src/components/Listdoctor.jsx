@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import "../styles/Doctor.css";
-import {useState }from 'react';
+import { useState , useEffect }from 'react';
 import 'date-fns';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid ,Card , CardActions , CardContent , Button , Typography , TextField , Dialog , DialogActions ,DialogContent , DialogContentText , DialogTitle , Radio , RadioGroup , FormControlLabel } from '@material-ui/core';
@@ -12,26 +12,49 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import {useEffect} from 'react';
-
 import Doctoritem from './Doctoritem';
+import firebase from "./firebase";
 
 
 function Listdoctor(props){
 
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  var [datewisedoctors , setdatewisedoctors] = useState([]);
+  var [doctordetails , setdoctordetails] = useState({});
+  const convertdate = (selectedDate) => {
+    var dd = selectedDate.getDate();
+    var mm = selectedDate.getMonth()+1;
+    var yyyy = selectedDate.getFullYear();
+    if(dd<10){dd='0'+dd}
+    if(mm<10){mm='0'+mm}
+    var today = dd+'-'+mm+'-'+yyyy;
+    return today;
+  }
+
+
+  useEffect(() => {
+
+    var redb = firebase.database();
+    var today = convertdate(selectedDate);
+    
+    redb.ref('schedule/DEMO/' + today).once('value' , (snapshot) => {
+      const temp = []
+      snapshot.forEach((v) => {
+        temp.push(v.val().doctorId);
+      });//temp.push(v.val().doctorId));
+      setdatewisedoctors(temp); 
+    });
+
+},[]);
 
  const [depart,setdepart]=useState("all department");
- const [selecteddate,setdate]=useState();
+
 
  const handledepart =(event) =>{
    setdepart(event.target.value)
    console.log(event.target.value)
  }
  
- const handledate=(event)=>{
-   setdate(event.target.value)
-   console.log(event.target.value)
- }
  const handlerescheduleinput = (e)=>{
    e.persist()
    setreForm((prevState) => ({
@@ -41,7 +64,7 @@ function Listdoctor(props){
 }))
 console.log(e.target.value)
 }
-const [selectedDate, setSelectedDate] = React.useState(new Date());
+
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -63,12 +86,6 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
     reslots:""
   })
 
-
-  const sampleprop = {
-    doctorname : 'LIKHITH S R',
-    designation : 'MBBS'
-
-  }
     
     return(
         <>
@@ -116,9 +133,9 @@ const [selectedDate, setSelectedDate] = React.useState(new Date());
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
     />
-    <Doctoritem data = {sampleprop} />
-    <Doctoritem data = {sampleprop} />
-    <Doctoritem data = {sampleprop} />
+    <Doctoritem  />
+    <Doctoritem  />
+    <Doctoritem  />
 
         </>
     )
