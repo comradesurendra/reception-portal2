@@ -1,4 +1,5 @@
 import React , { useState } from "react";
+import firebase from "./firebase";
 
 import { TablePagination , Accordion , AccordionSummary , AccordionDetails } from '@material-ui/core';
 import { Chip , Table , TableBody , TableCell , TableContainer , TableHead , TableRow ,Paper } from '@material-ui/core';
@@ -13,7 +14,7 @@ const Doctoritem = (props) => {
     const handleClose = () => {setOpen(false);};
     const [appoint,setAppoint]=useState(false);
     const handleappointment = ()=>{setAppoint(true);
-    localStorage.setItem("doctorsId","9SFyspJvZGSUUpzZNh7751z0IHL2");
+    let doctorId= localStorage.setItem("doctorId","9SFyspJvZGSUUpzZNh7751z0IHL2");
     }
     const handleCloseappoint=()=>{setAppoint(false)}
     const [reschedule,setreschedule]=useState(false)
@@ -53,7 +54,7 @@ const Doctoritem = (props) => {
       let doctorsId=localStorage.getItem(doctorId)
       jsonObj["doctorId"]=doctorsId
       console.log(jsonObj)
-      const addpatient=firebase.database().ref("patients_data");
+      const addpatient=firebase.database().ref("patients_data/DEMO");
           addpatient.push(jsonObj);
 
       
