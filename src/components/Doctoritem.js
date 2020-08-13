@@ -93,15 +93,7 @@ const Doctoritem = (props) => {
     const handleChange = (event) => {
       setValue(event.target.value);
     };
-    
-
-    
-    
-
-
-
-
-
+  
     function createData(name,age, sex, contact, slot,Action) {
       return { name,age, sex, contact, slot,Action };
     }
@@ -119,8 +111,8 @@ const Doctoritem = (props) => {
         <div className="content">
         
         
-        <Typography>{doctor.doctorname}</Typography><br/>
-        <Typography>{doctor.designation}</Typography>
+        <Typography>{null}</Typography><br/>
+        <Typography>{null}</Typography>
         <br/>
         <Typography>{/*EXPERIENCE*/}</Typography>
         </div>
