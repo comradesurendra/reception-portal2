@@ -12,7 +12,9 @@ const Doctoritem = (props) => {
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
     const [appoint,setAppoint]=useState(false);
-    const handleappointment = ()=>{setAppoint(true);}
+    const handleappointment = ()=>{setAppoint(true);
+    localStorage.setItem("doctorsId","9SFyspJvZGSUUpzZNh7751z0IHL2");
+    }
     const handleCloseappoint=()=>{setAppoint(false)}
     const [reschedule,setreschedule]=useState(false)
     const handlereschedule=()=>{setreschedule(true)}
@@ -23,7 +25,7 @@ const Doctoritem = (props) => {
   const handlerescheduleappoint=()=>{
     setreschedule(false)
   }
-  const [{ date,age,fname,lname,phone,address,email}, setForm] = useState({
+  const [{ date,age,fname,lname,phone,address,email,doctorId}, setForm] = useState({
     
     date:"",
      
@@ -33,6 +35,7 @@ const Doctoritem = (props) => {
      phone:"",
      address:"",
      email:"",
+     doctorId:"",
     })
   
     const onsubmits=(event)=>{
@@ -47,7 +50,13 @@ const Doctoritem = (props) => {
       jsonObj["phone"]=phone
       jsonObj["address"]=address
       jsonObj["email"]=email
+      let doctorsId=localStorage.getItem(doctorId)
+      jsonObj["doctorId"]=doctorsId
       console.log(jsonObj)
+      const addpatient=firebase.database().ref("patients_data");
+          addpatient.push(jsonObj);
+
+      
     
     }
     
