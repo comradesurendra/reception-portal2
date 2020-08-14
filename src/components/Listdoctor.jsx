@@ -20,7 +20,9 @@ function Listdoctor(props){
 
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   var [datewisedoctors , setdatewisedoctors] = useState([]);
-  var [doctordetails , setdoctordetails] = useState({});
+  var [todaydoctors , settodaydoctors] = useState([]);
+  var [alldoctors , setalldoctors] = useState({});
+
   const convertdate = (selectedDate) => {
     var dd = selectedDate.getDate();
     var mm = selectedDate.getMonth()+1;
@@ -36,6 +38,7 @@ function Listdoctor(props){
 
     var redb = firebase.database();
     var today = convertdate(selectedDate);
+    var alldoc = {};
     
     redb.ref('schedule/DEMO/' + today).once('value' , (snapshot) => {
       const temp = []
@@ -45,7 +48,14 @@ function Listdoctor(props){
       setdatewisedoctors(temp); 
     });
 
-},[]);
+    redb.ref('userlist').once('value' ,(snapshot) => {
+      snapshot.forEach((entry) => {
+        alldoc[entry.val().user_id] = entry.val()
+      });
+      setalldoctors(alldoc);
+    }
+  )},[selectedDate]);
+
 
  const [depart,setdepart]=useState("all department");
 
@@ -86,7 +96,21 @@ console.log(e.target.value)
     reslots:""
   })
 
-    
+  datewisedoctors.forEach( (doc) => {
+    todaydoctors.push(alldoctors[doc])
+  })
+
+  var len = datewisedoctors.length;
+
+
+  var elements=[];
+        for(var i=0;i<todaydoctors.length;i++){
+             // push the component to elements!
+            if(typeof todaydoctors[i] != "undefined"){
+            elements.push(<Doctoritem data = {todaydoctors[i]}/>);
+            }
+        }
+        console.log(todaydoctors);
     return(
         <>
         <Header/>
@@ -94,7 +118,7 @@ console.log(e.target.value)
         <Card className="blueback">
             <CardContent>
               
-                  <div onChange={handledepart}>
+              <div onChange={handledepart}>
               <select id="department" name="department">
                 <option  value="all department" >All Department</option>
                 <option  value="dental" >Dental</option>
@@ -103,7 +127,7 @@ console.log(e.target.value)
               </select>
                   
 
-                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
@@ -133,11 +157,13 @@ console.log(e.target.value)
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
     />
-    <Doctoritem  />
-    <Doctoritem  />
-    <Doctoritem  />
 
-        </>
+    <div>
+      {elements.slice(0,len)}
+    </div>
+
+
+    </>
     )
 
 }

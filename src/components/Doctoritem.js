@@ -13,9 +13,7 @@ const Doctoritem = (props) => {
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
     const [appoint,setAppoint]=useState(false);
-    const handleappointment = ()=>{setAppoint(true);
-    let doctorId= localStorage.setItem("doctorId","9SFyspJvZGSUUpzZNh7751z0IHL2");
-    }
+    const handleappointment = ()=>{setAppoint(true);}
     const handleCloseappoint=()=>{setAppoint(false)}
     const [reschedule,setreschedule]=useState(false)
     const handlereschedule=()=>{setreschedule(true)}
@@ -26,7 +24,7 @@ const Doctoritem = (props) => {
   const handlerescheduleappoint=()=>{
     setreschedule(false)
   }
-  const [{ date,age,fname,lname,phone,address,email,doctorId}, setForm] = useState({
+  const [{ date,age,fname,lname,phone,address,email}, setForm] = useState({
     
     date:"",
      
@@ -35,8 +33,7 @@ const Doctoritem = (props) => {
      lname:"",
      phone:"",
      address:"",
-     email:"",
-     doctorId:"",
+     email:""
     })
   
     const onsubmits=(event)=>{
@@ -51,14 +48,6 @@ const Doctoritem = (props) => {
       jsonObj["phone"]=phone
       jsonObj["address"]=address
       jsonObj["email"]=email
-      let doctorsId=localStorage.getItem(doctorId)
-      jsonObj["doctorId"]=doctorsId
-      console.log(jsonObj)
-      const addpatient=firebase.database().ref("patients_data/DEMO");
-          addpatient.push(jsonObj);
-
-      
-    
     }
     
     
@@ -112,13 +101,13 @@ const Doctoritem = (props) => {
         <div className="content">
         
         
-        <Typography>"LIKHTIH S REDDY"</Typography><br/>
-        <Typography>DOCTOR</Typography>
+        <Typography>{null}</Typography><br/>
+        <Typography>{null}</Typography>
         <br/>
-        <Typography>8 YEARS MBBS</Typography>
+        <Typography>{/*EXPERIENCE*/}</Typography>
         </div>
-      <>
-        <Accordion>
+
+        <Accordion style={{width : '90%'}}>
         <div className="view">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -127,7 +116,6 @@ const Doctoritem = (props) => {
         >
         
           <Typography >View Booking</Typography>
-
          
         </AccordionSummary>
         </div>
@@ -162,19 +150,15 @@ const Doctoritem = (props) => {
     </TableContainer>
         </AccordionDetails>
       </Accordion>
-
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-            +Book Appointment
-        </Button>
-    
-    </>
       
       
       
       </CardContent>
       
       <CardActions>
-
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        +Book Appointment
+      </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <form onSubmit={onsubmits} >
         <DialogTitle id="form-dialog-title">Patient Details</DialogTitle>
