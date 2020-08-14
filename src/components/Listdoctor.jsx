@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import "../styles/Doctor.css";
-import { useState , useEffect }from 'react';
+import { useState , useEffect, useRef }from 'react';
 import 'date-fns';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid ,Card , CardActions , CardContent , Button , Typography , TextField , Dialog , DialogActions ,DialogContent , DialogContentText , DialogTitle , Radio , RadioGroup , FormControlLabel } from '@material-ui/core';
@@ -15,31 +15,37 @@ import {
 import Doctoritem from './Doctoritem';
 import firebase from "./firebase";
 
+const convertdate = (selectedDate) => {
+  var dd = selectedDate.getDate();
+  var mm = selectedDate.getMonth()+1;
+  var yyyy = selectedDate.getFullYear();
+  if(dd<10){dd='0'+dd}
+  if(mm<10){mm='0'+mm}
+  const today = dd+'-'+mm+'-'+yyyy;
+  return today;
+}
 
-function Listdoctor(props){
+export default (props) => {
+  const { current: redb } = useRef(firebase.database());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [datewisedoctors , setdatewisedoctors] = useState([]);//DOC_ID ARRAY WHEN USER CHOOSES DATE from schedule list
+  const [alldoctors , setalldoctors] = useState(null); //ALL DOCTORS FROM USERLIST
+  const [todaydoctors , settodaydoctors] = useState([]);//DOCTOR DETAILS OBTAINED USING datewisedoctors & alldoctors
+  const [depart,setdepart]=useState("All departments");
+  const [page, setPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [{redate,reslots}, setreForm]=useState({
+    redate:"",
+    reslots:""
+  })
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-  var [datewisedoctors , setdatewisedoctors] = useState([]);
-  var [todaydoctors , settodaydoctors] = useState([]);
-  var [alldoctors , setalldoctors] = useState({});
+ 
 
-  const convertdate = (selectedDate) => {
-    var dd = selectedDate.getDate();
-    var mm = selectedDate.getMonth()+1;
-    var yyyy = selectedDate.getFullYear();
-    if(dd<10){dd='0'+dd}
-    if(mm<10){mm='0'+mm}
-    var today = dd+'-'+mm+'-'+yyyy;
-    return today;
-  }
 
 
   useEffect(() => {
-
-    var redb = firebase.database();
-    var today = convertdate(selectedDate);
-    var alldoc = {};
-    
+    const today = convertdate(selectedDate);
+   
     redb.ref('schedule/DEMO/' + today).once('value' , (snapshot) => {
       const temp = []
       snapshot.forEach((v) => {
@@ -47,22 +53,34 @@ function Listdoctor(props){
       });//temp.push(v.val().doctorId));
       setdatewisedoctors(temp); 
     });
+  }, [selectedDate]);
 
+  useEffect(() => {
+    const alldoc = {};
     redb.ref('userlist').once('value' ,(snapshot) => {
       snapshot.forEach((entry) => {
         alldoc[entry.val().user_id] = entry.val()
       });
       setalldoctors(alldoc);
+    })
+  }, [])
+
+  useEffect(() => {
+    if (alldoctors) {
+      //GET DOCTOR DETAILS USING THE OBTAINED doc_id array from userlistcollection
+      const newTodayDoctors = []
+      datewisedoctors.forEach((doc) => {
+        newTodayDoctors.push(alldoctors[doc])
+      })
+      settodaydoctors(newTodayDoctors)
     }
-  )},[selectedDate]);
+  }, [datewisedoctors, alldoctors])
 
 
- const [depart,setdepart]=useState("all department");
 
 
  const handledepart =(event) =>{
    setdepart(event.target.value)
-   console.log(event.target.value)
  }
  
  const handlerescheduleinput = (e)=>{
@@ -70,18 +88,13 @@ function Listdoctor(props){
    setreForm((prevState) => ({
     ...prevState,
     [e.target.name]: e.target.value,
-    
-}))
-console.log(e.target.value)
+  }))
 }
-
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
     console.log(date);
   };
-  const [page, setPage] = React.useState(2);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -91,26 +104,23 @@ console.log(e.target.value)
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const [{redate,reslots}, setreForm]=useState({
-    redate:"",
-    reslots:""
-  })
+  
+  console.log(todaydoctors)
 
-  datewisedoctors.forEach( (doc) => {
-    todaydoctors.push(alldoctors[doc])
-  })
-
-  var len = datewisedoctors.length;
-
-
-  var elements=[];
-        for(var i=0;i<todaydoctors.length;i++){
-             // push the component to elements!
-            if(typeof todaydoctors[i] != "undefined"){
-            elements.push(<Doctoritem data = {todaydoctors[i]}/>);
+  //DISPLAY ONLY DOCTORS FROM CHOSEN DEPARTMENTS
+  const elements=[];
+        for(let i=0;i<todaydoctors.length;i++){
+              if(depart == "All departments"){
+                  elements.push(<Doctoritem data = {todaydoctors[i]}/>);
+              } else {
+                if(todaydoctors[i].department == depart){
+                  elements.push(<Doctoritem data = {todaydoctors[i]}/>);              
+              }
             }
-        }
-        console.log(todaydoctors);
+      }
+
+
+  //DISPLAY ONLY DOCTORS FROM CHOSEN DEPARTMENTS
     return(
         <>
         <Header/>
@@ -120,9 +130,12 @@ console.log(e.target.value)
               
               <div onChange={handledepart}>
               <select id="department" name="department">
-                <option  value="all department" >All Department</option>
-                <option  value="dental" >Dental</option>
-                <option  value="cardology" >Cardlogy</option>
+                <option  value="All departments" >All Department</option>
+                <option  value="GENERAL" >General</option>
+                <option  value="DENTAL" >Dental</option>
+                <option  value="CARDIOLOGY" >Cardiology</option>
+                <option  value="Orthopaedic" >Orthopaedic</option>
+
              
               </select>
                   
@@ -159,7 +172,7 @@ console.log(e.target.value)
     />
 
     <div>
-      {elements.slice(0,len)}
+      {elements}
     </div>
 
 
@@ -167,4 +180,3 @@ console.log(e.target.value)
     )
 
 }
-export default Listdoctor;
