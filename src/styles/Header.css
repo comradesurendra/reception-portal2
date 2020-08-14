@@ -1,21 +1,4 @@
-/* .header{
-   width:1200px;
-   height:40px;
-   display:inline-flexbox;
-   padding-right: 15%;
+.profile{
+    border-radius: 50%;
 }
-.searchdiv{
-    left:1161px;
-    top:9px;
-    width:56px;
-    height:50px
-}
-.noti{
-    left:1100px;
-    top:14px;
-    width:5px;
-    height:7px;
-} */
-.notify{
-    padding-inline-end: 50px;
-}
+

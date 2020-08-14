@@ -102,13 +102,13 @@ const Doctoritem = (props) => {
         <div className="content">
         
         
-        <Typography>{null}</Typography><br/>
-        <Typography>{null}</Typography>
+        <Typography>"LIKHTIH S REDDY"</Typography><br/>
+        <Typography>DOCTOR</Typography>
         <br/>
-        <Typography>{/*EXPERIENCE*/}</Typography>
+        <Typography>8 YEARS MBBS</Typography>
         </div>
-
-        <Accordion style={{width : '90%'}}>
+      <>
+        <Accordion>
         <div className="view">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -117,6 +117,7 @@ const Doctoritem = (props) => {
         >
         
           <Typography >View Booking</Typography>
+
          
         </AccordionSummary>
         </div>
@@ -151,15 +152,19 @@ const Doctoritem = (props) => {
     </TableContainer>
         </AccordionDetails>
       </Accordion>
+
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+            +Book Appointment
+        </Button>
+    
+    </>
       
       
       
       </CardContent>
       
       <CardActions>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        +Book Appointment
-      </Button>
+
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <form onSubmit={onsubmits} >
         <DialogTitle id="form-dialog-title">Patient Details</DialogTitle>

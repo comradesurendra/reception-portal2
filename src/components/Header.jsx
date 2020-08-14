@@ -9,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { AppBar , Toolbar , Button, Box} from '@material-ui/core'
+import "../styles/Header.css";
 
 import Badge from '@material-ui/core/Badge';
 
@@ -27,23 +29,36 @@ return(
 <>
 
  
-     
+
+<AppBar position="static"style={{ background: '#ffffff' , boxShadow: `10px 30px 10px #9E9E9E`}}>
+  <Toolbar>
+   <Box display = 'flex' flexGrow = {1}>
+  <img src="logo.png" className="logo"/>
+  <Typography variant="h6" style={{color : "#0204B8"  , marginLeft: "10px"}}>
+      Prescribe
+  </Typography>
+  </Box>
+  <SearchIcon />
+  <InputBase placeholder="Search..."/>
+  <IconButton  color="inherit" className="notify">
+  <Badge badgeContent={17} color="secondary">
+  <NotificationsIcon />
+  </Badge>
+  </IconButton>
+  <img src="profile.png" className="profile"/>
+  </Toolbar>
+</AppBar>
+{/*      
       <Card  variant="outlined" className="card">
     <CardContent>
 
-           <img src="logo.png" className="logo"/>
+           
               
-               <SearchIcon />
-               <InputBase placeholder="Search..."/>
+               
        
-       <IconButton  color="inherit" className="notify">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <img src="profile.png" className="profile"/>
+       
             </CardContent>
- </Card>
+ </Card> */}
 
    
 
