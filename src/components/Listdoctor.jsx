@@ -63,7 +63,7 @@ export default (props) => {
     useEffect(() => {
         const today = convertdate(selectedDate)
 
-        redb.ref("schedule/DEMO/" + today).once("value", (snapshot) => {
+        redb.ref("schedule/AYUSH/" + today).once("value", (snapshot) => {
             const temp = []
             snapshot.forEach((v) => {
                 temp.push(v.val().doctorId)
