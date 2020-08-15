@@ -104,7 +104,6 @@ const Doctoritem = (props) => {
     const doctor = props.data;
 
     return (
-<<<<<<< HEAD
         <>
             <Card>
                 <CardContent>
@@ -177,86 +176,7 @@ const Doctoritem = (props) => {
                                     Please provide patient details to proceed for the appointment
                                     with DR.PRITTY PAWAREKAR
                                 </DialogContentText>
-=======
-    <>
-        <Card >
-        
-      <CardContent>
-        <img style= {{float : "left"}}src="profile.png"/>
-        
-        
-        
-        <Typography>{null}</Typography><br/>
-        <Typography>{null}</Typography>
-        <br/>
-        <Typography>{/*EXPERIENCE*/}</Typography>
-        
-<div style={{width:"30%"}}>
-        <Accordion>
-        
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panelheader"
-        >
-        
-          <Typography >View Booking</Typography>
-         
-        </AccordionSummary>
-        
-        <AccordionDetails>
-        <TableContainer component={Paper}>
-      <Table  aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Patient Name</TableCell>
-            <TableCell align="right">AGE</TableCell>
-            <TableCell align="right">SEX</TableCell>
-            <TableCell align="right">Contact</TableCell>
-            <TableCell align="right">Slot</TableCell>
-            <TableCell align="right" >Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-            <TableCell component="th" scope="row">
-              {row.name}
-            </TableCell>
-            <TableCell align="right">{row.age}</TableCell>
-            <TableCell align="right">{row.sex}</TableCell>
-            <TableCell align="right">{row.contact}</TableCell>
-            <TableCell align="right">{row.slot}</TableCell>
-            <TableCell align ="right">{row.Action}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      </Table>
-    </TableContainer>
-        </AccordionDetails>
-      </Accordion>
-      </div>
-      
-      
-      
-      </CardContent>
-     
-      <CardActions>
-      <div style={{width:"25%"},{float:"right"},{marginLeft:"60%"}}>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        +Book Appointment
-      </Button>
-      </div>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <form onSubmit={onsubmits} >
-        <DialogTitle id="form-dialog-title">Patient Details</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please provide patient details to proceed for the appointment with DR.PRITTY PAWAREKAR
->>>>>>> 95d3516eb43a8d3fec78d71ffeb4f8c4b726e67c
 
-          </DialogContentText>
-          
           <b>Select your Appointment Date</b><span className="require">*</span>
          
           
