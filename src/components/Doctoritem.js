@@ -113,7 +113,7 @@ const Doctoritem = (props) => {
         jsonObj["slot"] = slot
         jsonObj["sex"] = sex
 
-        redb.ref("patients_data/AYUSH").push(jsonObj);
+        redb.ref("appointment/03-08-2020/CAxmQB3Kx9OxlLSjJUMm6PWu8RC3").push(jsonObj) //WHEN DEPLOYED CHANGE TO /props.date/doctor.user_id
         console.log(jsonObj)
         setpatientadded(!patientadded)
     }
@@ -161,9 +161,7 @@ const Doctoritem = (props) => {
     const id = doctor.user_id
 
     useEffect(() => {
-        redb.ref("patients_data/AYUSH")
-            .orderByChild("doc_id")
-            .equalTo(id)
+        redb.ref("appointment/03-08-2020/CAxmQB3Kx9OxlLSjJUMm6PWu8RC3") //WHEN DEPLOYED CHANGE TO /props.date/doctor.user_id
             .once("value", (snapshot) => {
                 const temp = []
                 snapshot.forEach((v) => {
@@ -198,6 +196,7 @@ const Doctoritem = (props) => {
         setrows(temp)
     }, [allpatients])
 
+    console.log(allpatients)
     return (
         <>
             <Card>

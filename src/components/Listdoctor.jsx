@@ -62,8 +62,9 @@ export default (props) => {
 
     useEffect(() => {
         const today = convertdate(selectedDate)
+        console.log(today);
 
-        redb.ref("schedule/AYUSH/" + today).once("value", (snapshot) => {
+        redb.ref("schedule/DEMO/" + today).once("value", (snapshot) => {
             const temp = []
             snapshot.forEach((v) => {
                 temp.push(v.val().doctorId)
@@ -122,12 +123,13 @@ export default (props) => {
 
     //DISPLAY ONLY DOCTORS FROM CHOSEN DEPARTMENTS
     const elements = []
+    const todaydate = convertdate(selectedDate);
     for (let i = 0; i < todaydoctors.length; i++) {
         if (depart == "All departments") {
-            elements.push(<Doctoritem data={todaydoctors[i]} />)
+            elements.push(<Doctoritem data={todaydoctors[i]} date = {todaydate} />)
         } else {
             if (todaydoctors[i].department == depart) {
-                elements.push(<Doctoritem data={todaydoctors[i]} />)
+                elements.push(<Doctoritem data={todaydoctors[i]} date = {todaydate} />)
             }
         }
     }
