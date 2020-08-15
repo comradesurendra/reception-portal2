@@ -30,7 +30,7 @@ return(
 
  
 
-<AppBar position="static"style={{ background: '#ffffff' , boxShadow: `10px 30px 10px #9E9E9E`}}>
+<AppBar position="static"style={{ background: '#ffffff' ,boxShadow: `0 4px 8px 0 rgba(0,0,0,0.2)` , transition: `0.3`}}>
   <Toolbar>
    <Box display = 'flex' flexGrow = {1}>
   <img src="logo.png" className="logo"/>

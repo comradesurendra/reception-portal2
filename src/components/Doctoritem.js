@@ -151,7 +151,7 @@ const Doctoritem = (props) => {
                         <Typography>{/*EXPERIENCE*/}</Typography>
                     </div>
 
-                    <Accordion style={{ width: "90%" }}>
+                    <Accordion>
                         <div className="view">
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
