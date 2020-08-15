@@ -41,7 +41,7 @@ return(
   <SearchIcon />
   <InputBase placeholder="Search..."/>
   <IconButton  color="inherit" className="notify">
-  <Badge badgeContent={17} color="secondary">
+  <Badge badgeContent={17} color="secondary"  >
   <NotificationsIcon />
   </Badge>
   </IconButton>
